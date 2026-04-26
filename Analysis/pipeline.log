@@ -1,0 +1,309 @@
+2026-04-25 23:38:32,520 [INFO] Pipeline started at 2026-04-25 23:38:32.520125
+2026-04-25 23:38:32,520 [INFO] Repo root: C:\Users\rivaborn\AppData\Local\Temp
+2026-04-25 23:38:32,520 [INFO] Env file:  C:\Coding\LLM_Analysis\Common\.env
+2026-04-25 23:38:32,520 [INFO] Skipping LSP steps
+2026-04-25 23:38:32,679 [INFO] Subsection 1/14: Engine/Source/Runtime/Core
+2026-04-25 23:38:32,679 [INFO]   Step 1/6: Per-file docs
+2026-04-25 23:38:32,679 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\archgen.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp -TargetDir Engine/Source/Runtime/Core -Preset unreal
+2026-04-25 23:38:32,679 [INFO] [DRY RUN] Skipped
+2026-04-25 23:38:32,679 [INFO]   Step 2/6: Cross-reference index
+2026-04-25 23:38:32,680 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\archxref.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp
+2026-04-25 23:38:32,680 [INFO] [DRY RUN] Skipped
+2026-04-25 23:38:32,680 [INFO]   Step 3/6: Mermaid diagrams
+2026-04-25 23:38:32,680 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\archgraph.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp
+2026-04-25 23:38:32,680 [INFO] [DRY RUN] Skipped
+2026-04-25 23:38:32,680 [INFO]   Step 4/6: Architecture overview
+2026-04-25 23:38:32,680 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\arch_overview.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp
+2026-04-25 23:38:32,680 [INFO] [DRY RUN] Skipped
+2026-04-25 23:38:32,680 [INFO]   Step 5/6: Pass 2 context
+2026-04-25 23:38:32,680 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\archpass2_context.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp
+2026-04-25 23:38:32,680 [INFO] [DRY RUN] Skipped
+2026-04-25 23:38:32,680 [INFO]   Step 6/6: Pass 2 analysis
+2026-04-25 23:38:32,680 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\archpass2.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp
+2026-04-25 23:38:32,680 [INFO] [DRY RUN] Skipped
+2026-04-25 23:38:32,680 [INFO] Renaming C:\Users\rivaborn\AppData\Local\Temp\architecture -> C:\Users\rivaborn\AppData\Local\Temp\1. Engine\Source\Runtime\Core
+2026-04-25 23:49:48,173 [INFO] Pipeline started at 2026-04-25 23:49:48.173913
+2026-04-25 23:49:48,174 [INFO] Repo root: C:\Users\rivaborn\AppData\Local\Temp
+2026-04-25 23:49:48,174 [INFO] Env file:  C:\Coding\LLM_Analysis\Common\.env
+2026-04-25 23:49:48,174 [INFO] Skipping LSP steps
+2026-04-25 23:49:48,258 [INFO] Subsection 1/14: Engine/Source/Runtime/Core
+2026-04-25 23:49:48,258 [INFO]   Step 1/6: Per-file docs
+2026-04-25 23:49:48,258 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\archgen.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp -TargetDir Engine/Source/Runtime/Core -Preset unreal
+2026-04-25 23:49:48,258 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:48,258 [INFO]   Step 2/6: Cross-reference index
+2026-04-25 23:49:48,258 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\archxref.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp
+2026-04-25 23:49:48,258 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:48,258 [INFO]   Step 3/6: Mermaid diagrams
+2026-04-25 23:49:48,258 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\archgraph.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp
+2026-04-25 23:49:48,258 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:48,258 [INFO]   Step 4/6: Architecture overview
+2026-04-25 23:49:48,258 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\arch_overview.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp
+2026-04-25 23:49:48,258 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:48,258 [INFO]   Step 5/6: Pass 2 context
+2026-04-25 23:49:48,258 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\archpass2_context.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp
+2026-04-25 23:49:48,258 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:48,259 [INFO]   Step 6/6: Pass 2 analysis
+2026-04-25 23:49:48,259 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\archpass2.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp
+2026-04-25 23:49:48,259 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:48,259 [INFO] Renaming C:\Users\rivaborn\AppData\Local\Temp\architecture -> C:\Users\rivaborn\AppData\Local\Temp\1. Engine\Source\Runtime\Core
+2026-04-25 23:49:48,347 [INFO] Subsection 2/14: Engine/Source/Runtime/CoreUObject
+2026-04-25 23:49:48,347 [INFO]   Step 1/6: Per-file docs
+2026-04-25 23:49:48,347 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\archgen.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp -TargetDir Engine/Source/Runtime/CoreUObject -Preset unreal
+2026-04-25 23:49:48,347 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:48,347 [INFO]   Step 2/6: Cross-reference index
+2026-04-25 23:49:48,347 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\archxref.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp
+2026-04-25 23:49:48,347 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:48,347 [INFO]   Step 3/6: Mermaid diagrams
+2026-04-25 23:49:48,347 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\archgraph.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp
+2026-04-25 23:49:48,347 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:48,347 [INFO]   Step 4/6: Architecture overview
+2026-04-25 23:49:48,347 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\arch_overview.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp
+2026-04-25 23:49:48,347 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:48,347 [INFO]   Step 5/6: Pass 2 context
+2026-04-25 23:49:48,348 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\archpass2_context.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp
+2026-04-25 23:49:48,348 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:48,348 [INFO]   Step 6/6: Pass 2 analysis
+2026-04-25 23:49:48,348 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\archpass2.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp
+2026-04-25 23:49:48,348 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:48,348 [INFO] Renaming C:\Users\rivaborn\AppData\Local\Temp\architecture -> C:\Users\rivaborn\AppData\Local\Temp\2. Engine\Source\Runtime\CoreUObject
+2026-04-25 23:49:48,434 [INFO] Subsection 3/14: Engine/Source/Runtime/Engine
+2026-04-25 23:49:48,434 [INFO]   Step 1/6: Per-file docs
+2026-04-25 23:49:48,434 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\archgen.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp -TargetDir Engine/Source/Runtime/Engine -Preset unreal
+2026-04-25 23:49:48,434 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:48,434 [INFO]   Step 2/6: Cross-reference index
+2026-04-25 23:49:48,434 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\archxref.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp
+2026-04-25 23:49:48,434 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:48,434 [INFO]   Step 3/6: Mermaid diagrams
+2026-04-25 23:49:48,434 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\archgraph.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp
+2026-04-25 23:49:48,435 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:48,435 [INFO]   Step 4/6: Architecture overview
+2026-04-25 23:49:48,435 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\arch_overview.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp
+2026-04-25 23:49:48,435 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:48,435 [INFO]   Step 5/6: Pass 2 context
+2026-04-25 23:49:48,435 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\archpass2_context.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp
+2026-04-25 23:49:48,435 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:48,435 [INFO]   Step 6/6: Pass 2 analysis
+2026-04-25 23:49:48,435 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\archpass2.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp
+2026-04-25 23:49:48,435 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:48,435 [INFO] Renaming C:\Users\rivaborn\AppData\Local\Temp\architecture -> C:\Users\rivaborn\AppData\Local\Temp\3. Engine\Source\Runtime\Engine
+2026-04-25 23:49:48,520 [INFO] Subsection 4/14: Engine/Source/Runtime/Renderer
+2026-04-25 23:49:48,520 [INFO]   Step 1/6: Per-file docs
+2026-04-25 23:49:48,520 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\archgen.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp -TargetDir Engine/Source/Runtime/Renderer -Preset unreal
+2026-04-25 23:49:48,520 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:48,520 [INFO]   Step 2/6: Cross-reference index
+2026-04-25 23:49:48,520 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\archxref.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp
+2026-04-25 23:49:48,520 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:48,520 [INFO]   Step 3/6: Mermaid diagrams
+2026-04-25 23:49:48,520 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\archgraph.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp
+2026-04-25 23:49:48,521 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:48,521 [INFO]   Step 4/6: Architecture overview
+2026-04-25 23:49:48,521 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\arch_overview.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp
+2026-04-25 23:49:48,521 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:48,521 [INFO]   Step 5/6: Pass 2 context
+2026-04-25 23:49:48,521 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\archpass2_context.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp
+2026-04-25 23:49:48,521 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:48,521 [INFO]   Step 6/6: Pass 2 analysis
+2026-04-25 23:49:48,521 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\archpass2.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp
+2026-04-25 23:49:48,521 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:48,521 [INFO] Renaming C:\Users\rivaborn\AppData\Local\Temp\architecture -> C:\Users\rivaborn\AppData\Local\Temp\4. Engine\Source\Runtime\Renderer
+2026-04-25 23:49:48,609 [INFO] Subsection 5/14: Engine/Source/Runtime/RenderCore
+2026-04-25 23:49:48,609 [INFO]   Step 1/6: Per-file docs
+2026-04-25 23:49:48,609 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\archgen.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp -TargetDir Engine/Source/Runtime/RenderCore -Preset unreal
+2026-04-25 23:49:48,609 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:48,609 [INFO]   Step 2/6: Cross-reference index
+2026-04-25 23:49:48,609 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\archxref.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp
+2026-04-25 23:49:48,609 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:48,609 [INFO]   Step 3/6: Mermaid diagrams
+2026-04-25 23:49:48,609 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\archgraph.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp
+2026-04-25 23:49:48,609 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:48,609 [INFO]   Step 4/6: Architecture overview
+2026-04-25 23:49:48,609 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\arch_overview.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp
+2026-04-25 23:49:48,610 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:48,610 [INFO]   Step 5/6: Pass 2 context
+2026-04-25 23:49:48,610 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\archpass2_context.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp
+2026-04-25 23:49:48,610 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:48,610 [INFO]   Step 6/6: Pass 2 analysis
+2026-04-25 23:49:48,610 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\archpass2.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp
+2026-04-25 23:49:48,610 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:48,610 [INFO] Renaming C:\Users\rivaborn\AppData\Local\Temp\architecture -> C:\Users\rivaborn\AppData\Local\Temp\5. Engine\Source\Runtime\RenderCore
+2026-04-25 23:49:48,694 [INFO] Subsection 6/14: Engine/Source/Runtime/RHI
+2026-04-25 23:49:48,695 [INFO]   Step 1/6: Per-file docs
+2026-04-25 23:49:48,695 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\archgen.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp -TargetDir Engine/Source/Runtime/RHI -Preset unreal
+2026-04-25 23:49:48,695 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:48,695 [INFO]   Step 2/6: Cross-reference index
+2026-04-25 23:49:48,695 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\archxref.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp
+2026-04-25 23:49:48,695 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:48,695 [INFO]   Step 3/6: Mermaid diagrams
+2026-04-25 23:49:48,695 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\archgraph.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp
+2026-04-25 23:49:48,695 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:48,695 [INFO]   Step 4/6: Architecture overview
+2026-04-25 23:49:48,695 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\arch_overview.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp
+2026-04-25 23:49:48,695 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:48,695 [INFO]   Step 5/6: Pass 2 context
+2026-04-25 23:49:48,695 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\archpass2_context.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp
+2026-04-25 23:49:48,695 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:48,695 [INFO]   Step 6/6: Pass 2 analysis
+2026-04-25 23:49:48,695 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\archpass2.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp
+2026-04-25 23:49:48,695 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:48,695 [INFO] Renaming C:\Users\rivaborn\AppData\Local\Temp\architecture -> C:\Users\rivaborn\AppData\Local\Temp\6. Engine\Source\Runtime\RHI
+2026-04-25 23:49:48,780 [INFO] Subsection 7/14: Engine/Source/Runtime/PhysicsCore
+2026-04-25 23:49:48,780 [INFO]   Step 1/6: Per-file docs
+2026-04-25 23:49:48,780 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\archgen.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp -TargetDir Engine/Source/Runtime/PhysicsCore -Preset unreal
+2026-04-25 23:49:48,780 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:48,780 [INFO]   Step 2/6: Cross-reference index
+2026-04-25 23:49:48,781 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\archxref.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp
+2026-04-25 23:49:48,781 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:48,781 [INFO]   Step 3/6: Mermaid diagrams
+2026-04-25 23:49:48,781 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\archgraph.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp
+2026-04-25 23:49:48,781 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:48,781 [INFO]   Step 4/6: Architecture overview
+2026-04-25 23:49:48,781 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\arch_overview.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp
+2026-04-25 23:49:48,781 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:48,781 [INFO]   Step 5/6: Pass 2 context
+2026-04-25 23:49:48,781 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\archpass2_context.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp
+2026-04-25 23:49:48,781 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:48,781 [INFO]   Step 6/6: Pass 2 analysis
+2026-04-25 23:49:48,781 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\archpass2.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp
+2026-04-25 23:49:48,781 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:48,781 [INFO] Renaming C:\Users\rivaborn\AppData\Local\Temp\architecture -> C:\Users\rivaborn\AppData\Local\Temp\7. Engine\Source\Runtime\PhysicsCore
+2026-04-25 23:49:48,867 [INFO] Subsection 8/14: Engine/Source/Runtime/AudioMixerCore
+2026-04-25 23:49:48,867 [INFO]   Step 1/6: Per-file docs
+2026-04-25 23:49:48,867 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\archgen.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp -TargetDir Engine/Source/Runtime/AudioMixerCore -Preset unreal
+2026-04-25 23:49:48,867 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:48,867 [INFO]   Step 2/6: Cross-reference index
+2026-04-25 23:49:48,867 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\archxref.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp
+2026-04-25 23:49:48,867 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:48,867 [INFO]   Step 3/6: Mermaid diagrams
+2026-04-25 23:49:48,867 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\archgraph.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp
+2026-04-25 23:49:48,867 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:48,867 [INFO]   Step 4/6: Architecture overview
+2026-04-25 23:49:48,868 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\arch_overview.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp
+2026-04-25 23:49:48,868 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:48,868 [INFO]   Step 5/6: Pass 2 context
+2026-04-25 23:49:48,868 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\archpass2_context.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp
+2026-04-25 23:49:48,868 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:48,868 [INFO]   Step 6/6: Pass 2 analysis
+2026-04-25 23:49:48,868 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\archpass2.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp
+2026-04-25 23:49:48,868 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:48,868 [INFO] Renaming C:\Users\rivaborn\AppData\Local\Temp\architecture -> C:\Users\rivaborn\AppData\Local\Temp\8. Engine\Source\Runtime\AudioMixerCore
+2026-04-25 23:49:48,951 [INFO] Subsection 9/14: Engine/Source/Runtime/AIModule
+2026-04-25 23:49:48,951 [INFO]   Step 1/6: Per-file docs
+2026-04-25 23:49:48,951 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\archgen.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp -TargetDir Engine/Source/Runtime/AIModule -Preset unreal
+2026-04-25 23:49:48,951 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:48,951 [INFO]   Step 2/6: Cross-reference index
+2026-04-25 23:49:48,951 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\archxref.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp
+2026-04-25 23:49:48,951 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:48,951 [INFO]   Step 3/6: Mermaid diagrams
+2026-04-25 23:49:48,951 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\archgraph.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp
+2026-04-25 23:49:48,951 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:48,951 [INFO]   Step 4/6: Architecture overview
+2026-04-25 23:49:48,951 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\arch_overview.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp
+2026-04-25 23:49:48,951 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:48,951 [INFO]   Step 5/6: Pass 2 context
+2026-04-25 23:49:48,952 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\archpass2_context.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp
+2026-04-25 23:49:48,952 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:48,952 [INFO]   Step 6/6: Pass 2 analysis
+2026-04-25 23:49:48,952 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\archpass2.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp
+2026-04-25 23:49:48,952 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:48,952 [INFO] Renaming C:\Users\rivaborn\AppData\Local\Temp\architecture -> C:\Users\rivaborn\AppData\Local\Temp\9. Engine\Source\Runtime\AIModule
+2026-04-25 23:49:49,036 [INFO] Subsection 10/14: Engine/Source/Runtime/GameplayAbilities
+2026-04-25 23:49:49,037 [INFO]   Step 1/6: Per-file docs
+2026-04-25 23:49:49,037 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\archgen.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp -TargetDir Engine/Source/Runtime/GameplayAbilities -Preset unreal
+2026-04-25 23:49:49,037 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:49,037 [INFO]   Step 2/6: Cross-reference index
+2026-04-25 23:49:49,037 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\archxref.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp
+2026-04-25 23:49:49,037 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:49,037 [INFO]   Step 3/6: Mermaid diagrams
+2026-04-25 23:49:49,037 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\archgraph.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp
+2026-04-25 23:49:49,037 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:49,037 [INFO]   Step 4/6: Architecture overview
+2026-04-25 23:49:49,037 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\arch_overview.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp
+2026-04-25 23:49:49,037 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:49,037 [INFO]   Step 5/6: Pass 2 context
+2026-04-25 23:49:49,037 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\archpass2_context.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp
+2026-04-25 23:49:49,037 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:49,037 [INFO]   Step 6/6: Pass 2 analysis
+2026-04-25 23:49:49,037 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\archpass2.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp
+2026-04-25 23:49:49,037 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:49,037 [INFO] Renaming C:\Users\rivaborn\AppData\Local\Temp\architecture -> C:\Users\rivaborn\AppData\Local\Temp\10. Engine\Source\Runtime\GameplayAbilities
+2026-04-25 23:49:49,130 [INFO] Subsection 11/14: Engine/Source/Runtime/SlateCore
+2026-04-25 23:49:49,130 [INFO]   Step 1/6: Per-file docs
+2026-04-25 23:49:49,130 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\archgen.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp -TargetDir Engine/Source/Runtime/SlateCore -Preset unreal
+2026-04-25 23:49:49,130 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:49,130 [INFO]   Step 2/6: Cross-reference index
+2026-04-25 23:49:49,130 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\archxref.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp
+2026-04-25 23:49:49,130 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:49,130 [INFO]   Step 3/6: Mermaid diagrams
+2026-04-25 23:49:49,130 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\archgraph.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp
+2026-04-25 23:49:49,131 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:49,131 [INFO]   Step 4/6: Architecture overview
+2026-04-25 23:49:49,131 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\arch_overview.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp
+2026-04-25 23:49:49,131 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:49,131 [INFO]   Step 5/6: Pass 2 context
+2026-04-25 23:49:49,131 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\archpass2_context.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp
+2026-04-25 23:49:49,131 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:49,131 [INFO]   Step 6/6: Pass 2 analysis
+2026-04-25 23:49:49,131 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\archpass2.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp
+2026-04-25 23:49:49,131 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:49,131 [INFO] Renaming C:\Users\rivaborn\AppData\Local\Temp\architecture -> C:\Users\rivaborn\AppData\Local\Temp\11. Engine\Source\Runtime\SlateCore
+2026-04-25 23:49:49,219 [INFO] Subsection 12/14: Engine/Source/Runtime/Slate
+2026-04-25 23:49:49,219 [INFO]   Step 1/6: Per-file docs
+2026-04-25 23:49:49,219 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\archgen.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp -TargetDir Engine/Source/Runtime/Slate -Preset unreal
+2026-04-25 23:49:49,219 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:49,219 [INFO]   Step 2/6: Cross-reference index
+2026-04-25 23:49:49,220 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\archxref.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp
+2026-04-25 23:49:49,220 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:49,220 [INFO]   Step 3/6: Mermaid diagrams
+2026-04-25 23:49:49,220 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\archgraph.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp
+2026-04-25 23:49:49,220 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:49,220 [INFO]   Step 4/6: Architecture overview
+2026-04-25 23:49:49,220 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\arch_overview.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp
+2026-04-25 23:49:49,220 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:49,220 [INFO]   Step 5/6: Pass 2 context
+2026-04-25 23:49:49,220 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\archpass2_context.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp
+2026-04-25 23:49:49,220 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:49,220 [INFO]   Step 6/6: Pass 2 analysis
+2026-04-25 23:49:49,220 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\archpass2.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp
+2026-04-25 23:49:49,220 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:49,220 [INFO] Renaming C:\Users\rivaborn\AppData\Local\Temp\architecture -> C:\Users\rivaborn\AppData\Local\Temp\12. Engine\Source\Runtime\Slate
+2026-04-25 23:49:49,306 [INFO] Subsection 13/14: Engine/Source/Runtime/UMG
+2026-04-25 23:49:49,306 [INFO]   Step 1/6: Per-file docs
+2026-04-25 23:49:49,306 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\archgen.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp -TargetDir Engine/Source/Runtime/UMG -Preset unreal
+2026-04-25 23:49:49,306 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:49,306 [INFO]   Step 2/6: Cross-reference index
+2026-04-25 23:49:49,306 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\archxref.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp
+2026-04-25 23:49:49,306 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:49,306 [INFO]   Step 3/6: Mermaid diagrams
+2026-04-25 23:49:49,306 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\archgraph.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp
+2026-04-25 23:49:49,306 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:49,306 [INFO]   Step 4/6: Architecture overview
+2026-04-25 23:49:49,306 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\arch_overview.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp
+2026-04-25 23:49:49,306 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:49,306 [INFO]   Step 5/6: Pass 2 context
+2026-04-25 23:49:49,306 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\archpass2_context.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp
+2026-04-25 23:49:49,306 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:49,306 [INFO]   Step 6/6: Pass 2 analysis
+2026-04-25 23:49:49,307 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\archpass2.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp
+2026-04-25 23:49:49,307 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:49,307 [INFO] Renaming C:\Users\rivaborn\AppData\Local\Temp\architecture -> C:\Users\rivaborn\AppData\Local\Temp\13. Engine\Source\Runtime\UMG
+2026-04-25 23:49:49,391 [INFO] Subsection 14/14: Engine/Source/Runtime/NetworkCore
+2026-04-25 23:49:49,392 [INFO]   Step 1/6: Per-file docs
+2026-04-25 23:49:49,392 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\archgen.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp -TargetDir Engine/Source/Runtime/NetworkCore -Preset unreal
+2026-04-25 23:49:49,392 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:49,392 [INFO]   Step 2/6: Cross-reference index
+2026-04-25 23:49:49,392 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\archxref.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp
+2026-04-25 23:49:49,392 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:49,392 [INFO]   Step 3/6: Mermaid diagrams
+2026-04-25 23:49:49,392 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\archgraph.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp
+2026-04-25 23:49:49,392 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:49,392 [INFO]   Step 4/6: Architecture overview
+2026-04-25 23:49:49,392 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\arch_overview.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp
+2026-04-25 23:49:49,392 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:49,392 [INFO]   Step 5/6: Pass 2 context
+2026-04-25 23:49:49,392 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\archpass2_context.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp
+2026-04-25 23:49:49,392 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:49,392 [INFO]   Step 6/6: Pass 2 analysis
+2026-04-25 23:49:49,392 [INFO] Running: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Coding\LLM_Analysis\Analysis\archpass2.ps1 -RepoRoot C:\Users\rivaborn\AppData\Local\Temp
+2026-04-25 23:49:49,392 [INFO] [DRY RUN] Skipped
+2026-04-25 23:49:49,392 [INFO] Renaming C:\Users\rivaborn\AppData\Local\Temp\architecture -> C:\Users\rivaborn\AppData\Local\Temp\14. Engine\Source\Runtime\NetworkCore
+2026-04-25 23:49:49,392 [INFO] Pipeline complete.

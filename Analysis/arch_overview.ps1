@@ -23,35 +23,19 @@ param(
     [switch]$Clean,
     [switch]$Claude1,
     [switch]$Full,          # Force full regeneration (no incremental)
-    [string]$EnvFile   = ".env",
+    [string]$EnvFile   = "",
+    [string]$RepoRoot  = "",
     [switch]$Test
 )
 
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
-function Read-EnvFile($path) {
-    $vars = @{}
-    if (Test-Path $path) {
-        Get-Content $path | ForEach-Object {
-            $line = $_.Trim()
-            if ($line -match '^\s*#' -or $line -eq '') { return }
-            if ($line -match '^([^=]+)=(.*)$') {
-                $key = $Matches[1].Trim()
-                $val = $Matches[2].Trim().Trim('"').Trim("'")
-                $val = $val -replace '\$HOME', $env:USERPROFILE
-                $val = $val -replace '~', $env:USERPROFILE
-                $vars[$key] = $val
-            }
-        }
-    }
-    return $vars
-}
+if ($EnvFile -eq "") { $EnvFile = Join-Path $PSScriptRoot '..\Common\.env' }
 
-function Cfg($cfg, $key, $default = '') {
-    if ($cfg.ContainsKey($key) -and $cfg[$key] -ne '') { return $cfg[$key] }
-    return $default
-}
+# ── Load shared module ───────────────────────────────────────
+
+. (Join-Path $PSScriptRoot '..\Common\llm_common.ps1')
 
 function Test-RateLimit($text) {
     if ($text -match '(?m)^#\s+\S') { return $false }
@@ -695,31 +679,35 @@ if ($Test) {
 
 # ── Main execution ────────────────────────────────────────────
 
-$cfg = Read-EnvFile $EnvFile
+$script:cfg = Read-EnvFile $EnvFile
 
-$repoRoot = (Get-Location).Path
-try {
-    $gitRoot = git rev-parse --show-toplevel 2>$null
-    if ($LASTEXITCODE -eq 0 -and $gitRoot) { $repoRoot = $gitRoot.Trim() }
-} catch {}
+if ($RepoRoot -ne "") {
+    $repoRoot = (Resolve-Path $RepoRoot).Path
+} else {
+    $repoRoot = (Get-Location).Path
+    try {
+        $gitRoot = git rev-parse --show-toplevel 2>$null
+        if ($LASTEXITCODE -eq 0 -and $gitRoot) { $repoRoot = $gitRoot.Trim() }
+    } catch {}
+}
 
 $archDir   = Join-Path $repoRoot 'architecture'
 $stateDir  = Join-Path $archDir '.overview_state'
 New-Item -ItemType Directory -Force -Path $archDir  | Out-Null
 New-Item -ItemType Directory -Force -Path $stateDir | Out-Null
 
-$model         = Cfg $cfg 'CLAUDE_MODEL'         'sonnet'
-$tieredModel   = Cfg $cfg 'TIERED_MODEL'        '1'
-$highModel     = Cfg $cfg 'HIGH_COMPLEXITY_MODEL' 'sonnet'
+$model         = Cfg 'CLAUDE_MODEL'         'sonnet'
+$tieredModel   = Cfg 'TIERED_MODEL'        '1'
+$highModel     = Cfg 'HIGH_COMPLEXITY_MODEL' 'sonnet'
 if ($tieredModel -eq '1') { $model = $highModel }
 $modelCounts = @{ haiku = 0; sonnet = 0 }
-$maxTurns      = Cfg $cfg 'CLAUDE_MAX_TURNS'     '1'
-$outputFmt     = Cfg $cfg 'CLAUDE_OUTPUT_FORMAT' 'text'
-$codebaseDesc  = Cfg $cfg 'CODEBASE_DESC'        'game engine / game codebase'
-$chunkThreshold = [int](Cfg $cfg 'CHUNK_THRESHOLD' '1500')
+$maxTurns      = Cfg 'CLAUDE_MAX_TURNS'     '1'
+$outputFmt     = Cfg 'CLAUDE_OUTPUT_FORMAT' 'text'
+$codebaseDesc  = Cfg 'CODEBASE_DESC'        'game engine / game codebase'
+$chunkThreshold = [int](Cfg 'CHUNK_THRESHOLD' '1500')
 
 $cfgDirKey    = if ($Claude1) { 'CLAUDE1_CONFIG_DIR' } else { 'CLAUDE2_CONFIG_DIR' }
-$claudeCfgDir = Cfg $cfg $cfgDirKey ''
+$claudeCfgDir = Cfg $cfgDirKey ''
 if (-not $claudeCfgDir) { Write-Host "Missing $cfgDirKey in $EnvFile" -ForegroundColor Red; exit 2 }
 if (-not (Test-Path $claudeCfgDir)) { Write-Host "Claude config dir not found: $claudeCfgDir" -ForegroundColor Red; exit 2 }
 
