@@ -21,12 +21,15 @@
 [CmdletBinding()]
 param(
     [string]$TargetDir = ".",
-    [string]$EnvFile   = ".env",
+    [string]$EnvFile   = "",
+    [string]$RepoRoot  = "",
     [switch]$Test
 )
 
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
+
+if ($EnvFile -eq "") { $EnvFile = Join-Path $PSScriptRoot '..\Common\.env' }
 
 # ── Testable functions ────────────────────────────────────────
 
@@ -417,11 +420,15 @@ if ($Test) {
 
 # ── Main execution ────────────────────────────────────────────
 
-$repoRoot = (Get-Location).Path
-try {
-    $g = & git rev-parse --show-toplevel 2>$null
-    if ($LASTEXITCODE -eq 0 -and $g) { $repoRoot = $g.Trim() }
-} catch { }
+if ($RepoRoot -ne "") {
+    $repoRoot = (Resolve-Path $RepoRoot).Path
+} else {
+    $repoRoot = (Get-Location).Path
+    try {
+        $g = & git rev-parse --show-toplevel 2>$null
+        if ($LASTEXITCODE -eq 0 -and $g) { $repoRoot = $g.Trim() }
+    } catch { }
+}
 
 $archDir    = Join-Path $repoRoot "architecture"
 $contextDir = Join-Path $archDir  ".pass2_context"

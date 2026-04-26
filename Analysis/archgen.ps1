@@ -23,7 +23,8 @@ param(
     [switch]$Clean,
     [switch]$NoHeaders,
     [int]   $Jobs      = 0,
-    [string]$EnvFile   = ".env",
+    [string]$EnvFile   = "",
+    [string]$RepoRoot  = "",
     [string]$ElideSource = "",
     [string]$NoBatch = "",
     [string]$NoPreamble = "",
@@ -37,106 +38,18 @@ param(
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
+if ($EnvFile -eq "") { $EnvFile = Join-Path $PSScriptRoot '..\Common\.env' }
+
+# ── Load shared module ───────────────────────────────────────
+
+. (Join-Path $PSScriptRoot '..\Common\llm_common.ps1')
+
 function Write-Err($msg)  { Write-Host $msg -ForegroundColor Red }
 function Write-Info($msg) { Write-Host $msg -ForegroundColor Cyan }
 
-function Read-EnvFile($path) {
-    $vars = @{}
-    if (Test-Path $path) {
-        Get-Content $path | ForEach-Object {
-            $line = $_.Trim()
-            if ($line -match '^#' -or $line -eq '') { return }
-            if ($line -match '^([^=]+)=(.*)$') {
-                $key = $Matches[1].Trim()
-                $val = $Matches[2].Trim().Trim('"').Trim("'")
-                $val = $val -replace [regex]::Escape('$HOME'), $env:USERPROFILE
-                $val = $val -replace '^~', $env:USERPROFILE
-                $vars[$key] = $val
-            }
-        }
-    }
-    return $vars
-}
-
-function Get-SHA1($filePath) {
-    $sha   = [System.Security.Cryptography.SHA1]::Create()
-    $bytes = [System.IO.File]::ReadAllBytes($filePath)
-    return ($sha.ComputeHash($bytes) | ForEach-Object { $_.ToString('x2') }) -join ''
-}
-
-function Get-Preset($name) {
-    switch ($name.ToLower()) {
-        { $_ -in @('quake','quake2','quake3','doom','idtech') } {
-            return @{
-                Include = '\.(c|cc|cpp|cxx|h|hh|hpp|inl|inc)$'
-                Exclude = '[/\\](\.git|architecture|build|out|dist|obj|bin|Debug|Release|x64|Win32|\.vs|\.vscode|baseq2|baseq3|base)([/\\]|$)'
-                Desc    = 'C game engine codebase (id Software / Quake-family)'
-                Fence   = 'c'
-            }
-        }
-        { $_ -in @('unreal','ue4','ue5') } {
-            return @{
-                Include = '\.(cpp|h|hpp|cc|cxx|inl|cs)$'
-                Exclude = '[/\\](\.git|architecture|Binaries|Build|DerivedDataCache|Intermediate|Saved|\.vs|ThirdParty|GeneratedFiles|AutomationTool)([/\\]|$)'
-                Desc    = 'Unreal Engine C++/C# source (Epic Games). Core, CoreUObject, Engine, Renderer, PhysicsCore/Chaos, AudioMixerCore, AIModule, GameplayAbilities (GAS), Slate/UMG, NetworkCore.'
-                Fence   = 'cpp'
-            }
-        }
-        'godot' {
-            return @{
-                Include = '\.(cpp|h|hpp|c|cc|gd|gdscript|tscn|tres|cs)$'
-                Exclude = '[/\\](\.git|architecture|\.godot|\.import|build|export)([/\\]|$)'
-                Desc    = 'Godot engine codebase (C++/GDScript/C#)'
-                Fence   = 'cpp'
-            }
-        }
-        'unity' {
-            return @{
-                Include = '\.(cs|shader|cginc|hlsl|compute|glsl|cpp|c|h)$'
-                Exclude = '[/\\](\.git|architecture|Library|Temp|Obj|Build|Builds|Logs|UserSettings|\.vs)([/\\]|$)'
-                Desc    = 'Unity game codebase (C#/shader)'
-                Fence   = 'csharp'
-            }
-        }
-        { $_ -in @('source','valve') } {
-            return @{
-                Include = '\.(cpp|h|hpp|c|cc|cxx|inl|inc|vpc|vgc)$'
-                Exclude = '[/\\](\.git|architecture|build|out|obj|bin|Debug|Release|lib|thirdparty)([/\\]|$)'
-                Desc    = 'Source Engine codebase (Valve / C++)'
-                Fence   = 'cpp'
-            }
-        }
-        'rust' {
-            return @{
-                Include = '\.(rs|toml)$'
-                Exclude = '[/\\](\.git|architecture|target|\.cargo)([/\\]|$)'
-                Desc    = 'Rust game engine codebase'
-                Fence   = 'rust'
-            }
-        }
-        '' {
-            return @{
-                Include = '\.(c|cc|cpp|cxx|h|hh|hpp|inl|inc|cs|java|py|rs|lua|gd|gdscript|m|mm|swift)$'
-                Exclude = '[/\\](\.git|architecture|build|out|dist|obj|bin|Debug|Release|\.vs|\.vscode|node_modules|\.godot|Library|Temp)([/\\]|$)'
-                Desc    = 'game engine / game codebase'
-                Fence   = 'c'
-            }
-        }
-        default {
-            Write-Err "Unknown preset: $name. Available: quake, doom, unreal, godot, unity, source, rust"
-            exit 2
-        }
-    }
-}
-
 # ── Load config ───────────────────────────────────────────────
 
-$cfg = Read-EnvFile $EnvFile
-
-function Cfg($key, $default = '') {
-    if ($cfg.ContainsKey($key) -and $cfg[$key] -ne '') { return $cfg[$key] }
-    return $default
-}
+$script:cfg = Read-EnvFile $EnvFile
 
 $presetName   = if ($Preset -ne '') { $Preset } else { Cfg 'PRESET' '' }
 $presetData   = Get-Preset $presetName
@@ -179,11 +92,15 @@ if (-not (Test-Path $claudeCfgDir)) { Write-Err "Claude config dir not found: $c
 
 # ── Paths ─────────────────────────────────────────────────────
 
-$repoRoot = (Get-Location).Path
-try {
-    $g = & git rev-parse --show-toplevel 2>$null
-    if ($LASTEXITCODE -eq 0 -and $g) { $repoRoot = $g.Trim() }
-} catch {}
+if ($RepoRoot -ne "") {
+    $repoRoot = (Resolve-Path $RepoRoot).Path
+} else {
+    $repoRoot = (Get-Location).Path
+    try {
+        $g = & git rev-parse --show-toplevel 2>$null
+        if ($LASTEXITCODE -eq 0 -and $g) { $repoRoot = $g.Trim() }
+    } catch {}
+}
 
 $archDir  = Join-Path $repoRoot 'architecture'
 $stateDir = Join-Path $archDir  '.archgen_state'
@@ -200,23 +117,24 @@ if (-not (Test-Path $workerScript)) {
 $serenaContextDir = Join-Path $archDir '.serena_context'
 $hasSerenaContext  = Test-Path $serenaContextDir
 
-# Auto-select LSP prompt if Serena context is available and no explicit PROMPT_FILE set
+# Auto-select LSP prompt if Serena context is available and no explicit PROMPT_FILE set.
+# Prompt files now live alongside the script (Analysis/), not at the repo root.
 $defaultPrompt = if ($hasSerenaContext) { 'file_doc_prompt_lsp.txt' } else { 'file_doc_prompt.txt' }
-$promptFile = Cfg 'PROMPT_FILE' (Join-Path $repoRoot $defaultPrompt)
+$promptFile = Cfg 'PROMPT_FILE' (Join-Path $PSScriptRoot $defaultPrompt)
 if (-not (Test-Path $promptFile)) {
     # Fall back to standard prompt if LSP prompt doesn't exist
-    $promptFile = Join-Path $repoRoot 'file_doc_prompt.txt'
+    $promptFile = Join-Path $PSScriptRoot 'file_doc_prompt.txt'
 }
 if (-not (Test-Path $promptFile)) { Write-Err "Missing prompt file: $promptFile"; exit 2 }
 
 # Opt v2#3: Minimal prompt for simple files
-$minimalPromptFile = Join-Path $repoRoot 'file_doc_prompt_minimal.txt'
+$minimalPromptFile = Join-Path $PSScriptRoot 'file_doc_prompt_minimal.txt'
 if (-not (Test-Path $minimalPromptFile)) { $minimalPromptFile = '' }
 
 # Opt v2#2: Engine knowledge preamble
 $preambleContent = ''
 if ($usePreamble -eq '1') {
-    $preamblePath = Join-Path $repoRoot 'ue_preamble.txt'
+    $preamblePath = Join-Path $PSScriptRoot 'ue_preamble.txt'
     if (Test-Path $preamblePath) {
         $preambleContent = Get-Content $preamblePath -Raw
     }
@@ -1029,15 +947,15 @@ Does C stuff.
     # Test with a known env file
     $cfgTestPath = Join-Path $testDir 'cfg_test.env'
     @('MODEL=haiku', 'EMPTY_KEY=', 'JOBS=4') | Set-Content $cfgTestPath -Encoding UTF8
-    $savedCfg = $cfg
-    $cfg = Read-EnvFile $cfgTestPath
+    $savedCfg = $script:cfg
+    $script:cfg = Read-EnvFile $cfgTestPath
 
     Assert-Equal 'Cfg: existing key'         'haiku' (Cfg 'MODEL' 'sonnet')
     Assert-Equal 'Cfg: missing key, default' 'sonnet' (Cfg 'MISSING_KEY' 'sonnet')
     Assert-Equal 'Cfg: empty value, default' 'fallback' (Cfg 'EMPTY_KEY' 'fallback')
     Assert-Equal 'Cfg: numeric value'        '4'     (Cfg 'JOBS' '2')
 
-    $cfg = $savedCfg  # Restore
+    $script:cfg = $savedCfg  # Restore
 
     # ── Test: Get-Preset exclude patterns ─────────────────────
 
@@ -1436,7 +1354,7 @@ if ($bundleHdrs -eq '1' -and $queue.Count -gt 0) {
 
 if ($useClassify -eq '1' -and $queue.Count -gt 0) {
     Write-Host "Running classification phase..." -ForegroundColor Cyan
-    $classifyPrompt = Join-Path $repoRoot 'classify_prompt.txt'
+    $classifyPrompt = Join-Path $PSScriptRoot 'classify_prompt.txt'
     if (Test-Path $classifyPrompt) {
         $classifyQueue = [System.Collections.Generic.List[string]]::new()
         foreach ($r in $queue) {

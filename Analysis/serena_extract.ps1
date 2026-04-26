@@ -33,64 +33,23 @@ param(
     [switch]$Compress,
     [double]$MinFreeRAM = 6.0,
     [double]$RAMPerWorker = 5.0,
-    [string]$EnvFile    = ".env",
+    [string]$EnvFile    = "",
     [string]$ClangdPath = "clangd",
+    [string]$RepoRoot   = "",
     [switch]$Test
 )
 
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
+if ($EnvFile -eq "") { $EnvFile = Join-Path $PSScriptRoot '..\Common\.env' }
+
+# ── Load shared module ───────────────────────────────────────
+
+. (Join-Path $PSScriptRoot '..\Common\llm_common.ps1')
+
 function Write-Err($msg)  { Write-Host $msg -ForegroundColor Red }
 function Write-Info($msg) { Write-Host $msg -ForegroundColor Cyan }
-
-function Read-EnvFile($path) {
-    $vars = @{}
-    if (Test-Path $path) {
-        Get-Content $path | ForEach-Object {
-            $line = $_.Trim()
-            if ($line -match '^\s*#' -or $line -eq '') { return }
-            if ($line -match '^([^=]+)=(.*)$') {
-                $key = $Matches[1].Trim()
-                $val = $Matches[2].Trim().Trim('"').Trim("'")
-                $vars[$key] = $val
-            }
-        }
-    }
-    return $vars
-}
-
-function Cfg($key, $default = '') {
-    if ($cfg.ContainsKey($key) -and $cfg[$key] -ne '') { return $cfg[$key] }
-    return $default
-}
-
-function Get-Preset($name) {
-    switch ($name.ToLower()) {
-        { $_ -in @('quake','quake2','quake3','doom','idtech') } {
-            return @{
-                Include = '\.(c|cc|cpp|cxx|h|hh|hpp|inl|inc)$'
-                Exclude = '[/\\](\.git|architecture|build|out|dist|obj|bin|Debug|Release|x64|Win32|\.vs|\.vscode|baseq2|baseq3|base)([/\\]|$)'
-            }
-        }
-        { $_ -in @('unreal','ue4','ue5') } {
-            return @{
-                Include = '\.(cpp|h|hpp|cc|cxx|inl)$'
-                Exclude = '[/\\](\.git|architecture|Binaries|Build|DerivedDataCache|Intermediate|Saved|\.vs|ThirdParty|GeneratedFiles|AutomationTool)([/\\]|$)'
-            }
-        }
-        '' {
-            return @{
-                Include = '\.(c|cc|cpp|cxx|h|hh|hpp|inl|inc)$'
-                Exclude = '[/\\](\.git|architecture|build|out|dist|obj|bin|Debug|Release|\.vs)([/\\]|$)'
-            }
-        }
-        default {
-            Write-Err "Unknown preset: $name"
-            exit 2
-        }
-    }
-}
 
 function Build-PyArgs(
     $extractScript, $repoRoot, $targetDir, $clangdPath,
@@ -188,7 +147,7 @@ if ($Test) {
         # --------------------------------------------------
         Write-Host "--- Cfg ---" -ForegroundColor Yellow
 
-        $cfg = @{ 'PRESENT' = 'hello'; 'EMPTY' = '' }
+        $script:cfg = @{ 'PRESENT' = 'hello'; 'EMPTY' = '' }
         Assert-Equal (Cfg 'PRESENT' 'default') 'hello' 'Cfg: existing key returns value'
         Assert-Equal (Cfg 'MISSING' 'default') 'default' 'Cfg: missing key returns default'
         Assert-Equal (Cfg 'EMPTY' 'default') 'default' 'Cfg: empty key returns default'
@@ -308,17 +267,21 @@ if ($Test) {
 
 # -- Load config -----------------------------------------------
 
-$cfg = Read-EnvFile $EnvFile
+$script:cfg = Read-EnvFile $EnvFile
 $presetName = if ($Preset -ne '') { $Preset } else { Cfg 'PRESET' '' }
 $presetData = Get-Preset $presetName
 $includeRx  = Cfg 'INCLUDE_EXT_REGEX'  $presetData.Include
 $excludeRx  = Cfg 'EXCLUDE_DIRS_REGEX' $presetData.Exclude
 
-$repoRoot = (Get-Location).Path
-try {
-    $g = & git rev-parse --show-toplevel 2>$null
-    if ($LASTEXITCODE -eq 0 -and $g) { $repoRoot = $g.Trim() }
-} catch {}
+if ($RepoRoot -ne "") {
+    $repoRoot = (Resolve-Path $RepoRoot).Path
+} else {
+    $repoRoot = (Get-Location).Path
+    try {
+        $g = & git rev-parse --show-toplevel 2>$null
+        if ($LASTEXITCODE -eq 0 -and $g) { $repoRoot = $g.Trim() }
+    } catch {}
+}
 
 # -- Verify prerequisites ----------------------------------------
 

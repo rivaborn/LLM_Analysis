@@ -27,7 +27,8 @@ param(
     [switch]$Clean,
     [string]$Only      = "",     # Comma-separated list of relative file paths
     [int]   $Jobs      = 0,
-    [string]$EnvFile   = ".env",
+    [string]$EnvFile   = "",
+    [string]$RepoRoot  = "",
     [int]   $Top       = 0,      # Only process top-N scoring files (0 = all)
     [switch]$ScoreOnly,           # Just print scores, don't run Pass 2
     [switch]$Delta,               # Opt v2#4: Delta-only mode — output only new insights, not full doc
@@ -37,34 +38,11 @@ param(
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
-function Read-EnvFile($path) {
-    $vars = @{}
-    if (Test-Path $path) {
-        Get-Content $path | ForEach-Object {
-            $line = $_.Trim()
-            if ($line -match '^\s*#' -or $line -eq '') { return }
-            if ($line -match '^([^=]+)=(.*)$') {
-                $key = $Matches[1].Trim()
-                $val = $Matches[2].Trim().Trim('"').Trim("'")
-                $val = $val -replace '\$HOME', $env:USERPROFILE
-                $val = $val -replace '~', $env:USERPROFILE
-                $vars[$key] = $val
-            }
-        }
-    }
-    return $vars
-}
+if ($EnvFile -eq "") { $EnvFile = Join-Path $PSScriptRoot '..\Common\.env' }
 
-function Cfg($cfg, $key, $default = '') {
-    if ($cfg.ContainsKey($key) -and $cfg[$key] -ne '') { return $cfg[$key] }
-    return $default
-}
+# ── Load shared module ───────────────────────────────────────
 
-function Get-SHA1($filePath) {
-    $sha   = [System.Security.Cryptography.SHA1]::Create()
-    $bytes = [System.IO.File]::ReadAllBytes($filePath)
-    return ($sha.ComputeHash($bytes) | ForEach-Object { $_.ToString("x2") }) -join ''
-}
+. (Join-Path $PSScriptRoot '..\Common\llm_common.ps1')
 
 function Test-RateLimit($text) {
     $first3 = ($text -split "`n" | Select-Object -First 3) -join "`n"
@@ -409,35 +387,39 @@ if ($Test) {
 
 # -- Load config -----------------------------------------------
 
-$cfg = Read-EnvFile $EnvFile
+$script:cfg = Read-EnvFile $EnvFile
 
-$repoRoot = (Get-Location).Path
-try {
-    $gitRoot = git rev-parse --show-toplevel 2>$null
-    if ($LASTEXITCODE -eq 0 -and $gitRoot) { $repoRoot = $gitRoot.Trim() }
-} catch {}
+if ($RepoRoot -ne "") {
+    $repoRoot = (Resolve-Path $RepoRoot).Path
+} else {
+    $repoRoot = (Get-Location).Path
+    try {
+        $gitRoot = git rev-parse --show-toplevel 2>$null
+        if ($LASTEXITCODE -eq 0 -and $gitRoot) { $repoRoot = $gitRoot.Trim() }
+    } catch {}
+}
 
 $archDir  = Join-Path $repoRoot 'architecture'
 $stateDir = Join-Path $archDir  '.pass2_state'
 New-Item -ItemType Directory -Force -Path $stateDir | Out-Null
 
-$defaultModel  = Cfg $cfg 'CLAUDE_MODEL'         'sonnet'
+$defaultModel  = Cfg 'CLAUDE_MODEL'         'sonnet'
 $model         = $defaultModel
-$tieredModel   = Cfg $cfg 'TIERED_MODEL'        '1'
-$highModel     = Cfg $cfg 'HIGH_COMPLEXITY_MODEL' 'sonnet'
-$maxTurns      = Cfg $cfg 'CLAUDE_MAX_TURNS'     '1'
-$outputFmt     = Cfg $cfg 'CLAUDE_OUTPUT_FORMAT' 'text'
-$jobCount      = if ($Jobs -gt 0) { $Jobs } else { [int](Cfg $cfg 'JOBS' '2') }
-$maxRetries    = [int](Cfg $cfg 'MAX_RETRIES' '2')
-$retryDelay    = [int](Cfg $cfg 'RETRY_DELAY' '5')
-$includeRx     = Cfg $cfg 'INCLUDE_EXT_REGEX' '\.(c|cc|cpp|cxx|h|hh|hpp|inl|inc|cs|java|py|rs|lua|gd|m|mm|swift)$'
-$excludeRx     = Cfg $cfg 'EXCLUDE_DIRS_REGEX' '[/\\](\.git|architecture|build|out|dist|obj|bin)([/\\]|$)'
-$extraExclude  = Cfg $cfg 'EXTRA_EXCLUDE_REGEX' ''
-$defaultFence  = Cfg $cfg 'DEFAULT_FENCE' 'c'
-$codebaseDesc  = Cfg $cfg 'CODEBASE_DESC' 'game engine / game codebase'
+$tieredModel   = Cfg 'TIERED_MODEL'        '1'
+$highModel     = Cfg 'HIGH_COMPLEXITY_MODEL' 'sonnet'
+$maxTurns      = Cfg 'CLAUDE_MAX_TURNS'     '1'
+$outputFmt     = Cfg 'CLAUDE_OUTPUT_FORMAT' 'text'
+$jobCount      = if ($Jobs -gt 0) { $Jobs } else { [int](Cfg 'JOBS' '2') }
+$maxRetries    = [int](Cfg 'MAX_RETRIES' '2')
+$retryDelay    = [int](Cfg 'RETRY_DELAY' '5')
+$includeRx     = Cfg 'INCLUDE_EXT_REGEX' '\.(c|cc|cpp|cxx|h|hh|hpp|inl|inc|cs|java|py|rs|lua|gd|m|mm|swift)$'
+$excludeRx     = Cfg 'EXCLUDE_DIRS_REGEX' '[/\\](\.git|architecture|build|out|dist|obj|bin)([/\\]|$)'
+$extraExclude  = Cfg 'EXTRA_EXCLUDE_REGEX' ''
+$defaultFence  = Cfg 'DEFAULT_FENCE' 'c'
+$codebaseDesc  = Cfg 'CODEBASE_DESC' 'game engine / game codebase'
 
 $cfgDirKey    = if ($Claude1) { 'CLAUDE1_CONFIG_DIR' } else { 'CLAUDE2_CONFIG_DIR' }
-$claudeCfgDir = Cfg $cfg $cfgDirKey ''
+$claudeCfgDir = Cfg $cfgDirKey ''
 if (-not $claudeCfgDir) { Write-Host "Missing $cfgDirKey in $EnvFile" -ForegroundColor Red; exit 2 }
 if (-not (Test-Path $claudeCfgDir)) { Write-Host "Claude config dir not found: $claudeCfgDir" -ForegroundColor Red; exit 2 }
 
@@ -479,15 +461,15 @@ Remove-Item $rateLimitFile -ErrorAction SilentlyContinue
 # Pass-2 prompt (auto-generate if missing)
 # Opt v2#4: Delta mode uses a different prompt
 if ($Delta) {
-    $deltaPrompt = Join-Path $repoRoot 'file_doc_prompt_pass2_delta.txt'
+    $deltaPrompt = Join-Path $PSScriptRoot 'file_doc_prompt_pass2_delta.txt'
     if (Test-Path $deltaPrompt) {
         $promptFileP2 = $deltaPrompt
     } else {
         Write-Host "Warning: Delta prompt not found at $deltaPrompt, using standard pass-2 prompt" -ForegroundColor Yellow
-        $promptFileP2 = Cfg $cfg 'PROMPT_FILE_P2' (Join-Path $repoRoot 'file_doc_prompt_pass2.txt')
+        $promptFileP2 = Cfg 'PROMPT_FILE_P2' (Join-Path $PSScriptRoot 'file_doc_prompt_pass2.txt')
     }
 } else {
-    $promptFileP2 = Cfg $cfg 'PROMPT_FILE_P2' (Join-Path $repoRoot 'file_doc_prompt_pass2.txt')
+    $promptFileP2 = Cfg 'PROMPT_FILE_P2' (Join-Path $PSScriptRoot 'file_doc_prompt_pass2.txt')
 }
 if (-not (Test-Path $promptFileP2)) {
     Write-Host "No pass-2 prompt found at: $promptFileP2 - generating default..." -ForegroundColor Yellow
